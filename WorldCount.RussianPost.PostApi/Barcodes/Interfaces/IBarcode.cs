@@ -1,5 +1,8 @@
 ﻿namespace WorldCount.RussianPost.PostApi.Barcodes.Interfaces
 {
+    /// <summary>
+    /// Интерфейс класса ШПИ
+    /// </summary>
     public interface IBarcode
     {
         /// <summary>Тип ШПИ</summary>

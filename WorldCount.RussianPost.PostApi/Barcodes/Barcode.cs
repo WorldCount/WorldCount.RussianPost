@@ -3,9 +3,11 @@ using WorldCount.RussianPost.PostApi.Barcodes.Interfaces;
 
 namespace WorldCount.RussianPost.PostApi.Barcodes
 {
+    /// <summary>
+    /// Класс ШПИ
+    /// </summary>
     public class Barcode : IBarcode
     {
-
         #region Публичные свойства
 
         /// <summary>Тип ШПИ</summary>
