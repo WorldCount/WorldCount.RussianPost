@@ -5,26 +5,41 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
 {
     public class Barcode : IBarcode
     {
+
+        #region Публичные свойства
+
         public BarcodeType Type { get; set; } = BarcodeType.Unknown;
 
         // Internal Barcode
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>Номер отделения связи</summary>
         public int Ops { get; set; }
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>Месяц ШПИ</summary>
         public int Month { get; set; }
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>Номер ШПИ</summary>
         public int Num { get; set; }
 
         // External Barcode
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>Код отправления для МЖД ШПИ</summary>
         public string Code { get; set; }
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>Страна отправления для МЖД ШПИ</summary>
         public string Land { get; set; }
 
+        #endregion
+
+
+        #region Конструкторы
+
+        /// <summary>
+        /// Объект ШПИ
+        /// </summary>
         public Barcode()
         {
         }
 
+        /// <summary>
+        /// Объект ШПИ
+        /// </summary>
+        /// <param name="barcodeString">Строка со ШПИ</param>
         public Barcode(string barcodeString)
         {
             try
@@ -37,7 +52,16 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             }
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
+        #endregion
+
+
+        #region Публичные методы
+
+        /// <summary>
+        /// Парсинг строки со ШПИ
+        /// </summary>
+        /// <param name="barcodeString">Строка с номером ШПИ</param>
+        /// <returns>Парсинг выполнен: bool</returns>
         public bool Parse(string barcodeString)
         {
             int length = barcodeString.Length;
@@ -71,15 +95,23 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return true;
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>
+        /// Проверка типа отправления Внутреннее\Внешнее
+        /// </summary>
+        /// <param name="barcodeString">Строка с номером ШПИ</param>
         public BarcodeType CheckType(string barcodeString)
         {
-            if(string.IsNullOrEmpty(barcodeString)) throw new ArgumentNullException(nameof(barcodeString));
+            if (string.IsNullOrEmpty(barcodeString)) throw new ArgumentNullException(nameof(barcodeString));
 
             if (Const.Nums.Contains(barcodeString[0])) return BarcodeType.Internal;
             return BarcodeType.External;
         }
 
+        /// <summary>
+        /// Уменьшает номер отправления на указанное число
+        /// </summary>
+        /// <param name="num">Число</param>
+        /// <returns>Уменьшение выполнено: bool</returns>
         public bool DecrementNum(int num)
         {
             if (Type == BarcodeType.Internal)
@@ -108,6 +140,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return false;
         }
 
+        /// <summary>
+        /// Увеличивает номер отправления на указанное число
+        /// </summary>
+        /// <param name="num">Число</param>
+        /// <returns>Увеличение выполнено: bool</returns>
         public bool IncrementNum(int num)
         {
             if (Type == BarcodeType.Internal)
@@ -136,6 +173,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return false;
         }
 
+        /// <summary>
+        /// Уменьшает номер месяца на указанное число
+        /// </summary>
+        /// <param name="num">Число</param>
+        /// <returns>Уменьшение выполнено: bool</returns>
         public bool DecrementMonth(int num)
         {
             if (Type == BarcodeType.External)
@@ -149,6 +191,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return true;
         }
 
+        /// <summary>
+        /// Увеличивает номер месяца на указанное число
+        /// </summary>
+        /// <param name="num">Число</param>
+        /// <returns>Увеличение выполнено: bool</returns>
         public bool IncrementMonth(int num)
         {
             if (Type == BarcodeType.External)
@@ -162,21 +209,37 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return true;
         }
 
+        /// <summary>
+        /// Это внешнее отправление
+        /// </summary>
+        /// <returns>bool</returns>
         public bool IsExternal()
         {
             return Type == BarcodeType.External;
         }
 
+        /// <summary>
+        /// Это внутреннее отправление
+        /// </summary>
+        /// <returns>bool</returns>
         public bool IsInteral()
         {
             return Type == BarcodeType.Internal;
         }
 
+        /// <summary>
+        /// Это неопределенное отправление
+        /// </summary>
+        /// <returns>bool</returns>
         public bool IsUnknown()
         {
             return Type == BarcodeType.Unknown;
         }
 
+        /// <summary>
+        /// Возвращает дату по номеру месяца отправления
+        /// </summary>
+        /// <returns>Дата месяца: DateTime</returns>
         public DateTime? MonthToDate()
         {
             if (Type == BarcodeType.External)
@@ -199,6 +262,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return startDate.AddMonths(Month - 1);
         }
 
+        /// <summary>
+        /// Устанавливает номер месяца по дате
+        /// </summary>
+        /// <param name="date">Дата месяца</param>
+        /// <returns>Установка удалась: bool</returns>
         public bool SetMonthByDate(DateTime date)
         {
             DateTime startDate = new DateTime(2000, 1, 1);
@@ -212,6 +280,10 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return true;
         }
 
+        /// <summary>
+        /// Возвращает ШПИ с контрольным разрядом
+        /// </summary>
+        /// <returns>ШПИ полностью: string</returns>
         public override string ToString()
         {
             if (Type == BarcodeType.Internal)
@@ -220,5 +292,8 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
                 return BarcodeGenerator.GetExternalBarcode(this);
             return "";
         }
+
+        #endregion
+
     }
 }
