@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCount.RussianPost.PostApi", "WorldCount.RussianPost.PostApi\WorldCount.RussianPost.PostApi.csproj", "{D4F634A4-9E09-4F86-84B3-93528E9FED52}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestsApp", "TestsApp", "{DE66BE7D-D985-49AB-A0C7-5051F6F6B387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCount.RussianPost.TestConsoleApp", "TestsApp\WorldCount.RussianPost.TestConsoleApp\WorldCount.RussianPost.TestConsoleApp.csproj", "{EA772A6B-8680-459A-B4E3-83A2066B664A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{D4F634A4-9E09-4F86-84B3-93528E9FED52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F634A4-9E09-4F86-84B3-93528E9FED52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F634A4-9E09-4F86-84B3-93528E9FED52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA772A6B-8680-459A-B4E3-83A2066B664A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA772A6B-8680-459A-B4E3-83A2066B664A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA772A6B-8680-459A-B4E3-83A2066B664A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA772A6B-8680-459A-B4E3-83A2066B664A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA772A6B-8680-459A-B4E3-83A2066B664A} = {DE66BE7D-D985-49AB-A0C7-5051F6F6B387}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A0058F6-E38C-4A88-B90D-37946E5FF794}

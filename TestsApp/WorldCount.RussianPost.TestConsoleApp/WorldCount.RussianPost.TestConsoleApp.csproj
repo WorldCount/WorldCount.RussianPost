@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4F634A4-9E09-4F86-84B3-93528E9FED52}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WorldCount.RussianPost.PostApi</RootNamespace>
-    <AssemblyName>WorldCount.RussianPost.PostApi</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <ProjectGuid>{EA772A6B-8680-459A-B4E3-83A2066B664A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WorldCount.RussianPost.TestConsoleApp</RootNamespace>
+    <AssemblyName>WorldCount.RussianPost.TestConsoleApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,13 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Barcodes\Barcode.cs" />
-    <Compile Include="Barcodes\BarcodeGenerator.cs" />
-    <Compile Include="Barcodes\BarcodeType.cs" />
-    <Compile Include="Barcodes\Const.cs" />
-    <Compile Include="Barcodes\Interfaces\IBarcode.cs" />
+    <Compile Include="BarcodeGen.cs" />
+    <Compile Include="Frabric.cs" />
+    <Compile Include="ITestBarcode.cs" />
+    <Compile Include="TestIntBarcode.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestExtBarcode.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WorldCount.RussianPost.PostApi\WorldCount.RussianPost.PostApi.csproj">
+      <Project>{d4f634a4-9e09-4f86-84b3-93528e9fed52}</Project>
+      <Name>WorldCount.RussianPost.PostApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
