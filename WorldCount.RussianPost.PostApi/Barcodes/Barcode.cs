@@ -8,6 +8,7 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
 
         #region Публичные свойства
 
+        /// <summary>Тип ШПИ</summary>
         public BarcodeType Type { get; set; } = BarcodeType.Unknown;
 
         // Internal Barcode
