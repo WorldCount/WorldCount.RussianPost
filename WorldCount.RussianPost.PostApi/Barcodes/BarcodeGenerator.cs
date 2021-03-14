@@ -6,11 +6,23 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
 {
     public static class BarcodeGenerator
     {
+        /// <summary>
+        /// Генерирует ШПИ с верным контрольным разрядом для внутреннего отправления
+        /// </summary>
+        /// <param name="barcode">Объект ШПИ</param>
+        /// <returns>Валидный ШПИ: string</returns>
         internal static string GetInternalBarcode(Barcode barcode)
         {
             return GetInternalBarcode(barcode.Ops, barcode.Month, barcode.Num);
         }
 
+        /// <summary>
+        /// Генерирует ШПИ с верным контрольным разрядом для внутреннего отправления
+        /// </summary>
+        /// <param name="ops">Номер ОПС</param>
+        /// <param name="month">Номер месяца</param>
+        /// <param name="num">Номер отправления</param>
+        /// <returns>Валидный ШПИ: string</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         internal static string GetInternalBarcode(int ops, int month, int num)
         {
@@ -45,11 +57,23 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return $"{b.Substring(0, 13)}{controlRank}";
         }
 
+        /// <summary>
+        /// Генерирует ШПИ с верным контрольным разрядом для внешнего отправления
+        /// </summary>
+        /// <param name="barcode">Объект ШПИ</param>
+        /// <returns>Валидный ШПИ: string</returns>
         internal static string GetExternalBarcode(Barcode barcode)
         {
             return GetExternalBarcode(barcode.Code, barcode.Land, barcode.Num);
         }
 
+        /// <summary>
+        /// Генерирует ШПИ с верным контрольным разрядом для внешнего отправления
+        /// </summary>
+        /// <param name="code">Код отправления</param>
+        /// <param name="land">Код страны отправления</param>
+        /// <param name="num">Номер отправления</param>
+        /// <returns>Валидный ШПИ: string</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         internal static string GetExternalBarcode(string code, string land, int num)
         {
@@ -84,27 +108,56 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return $"{code}{b}{controlRank}{land}".ToUpper();
         }
 
+        /// <summary>
+        /// Создает объект ШПИ из строки
+        /// </summary>
+        /// <param name="barcodeString">Строка со ШПИ</param>
+        /// <returns>Объект ШПИ: Barcode</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static Barcode GenBarcode(string barcodeString)
         {
             return new Barcode(barcodeString);
         }
 
+        /// <summary>
+        /// Создает объект ШПИ для внутреннего отправления
+        /// </summary>
+        /// <param name="ops">Номер отделения</param>
+        /// <param name="month">Номер месяца</param>
+        /// <param name="num">Номер отправления</param>
+        /// <returns>Объект ШПИ: Barcode</returns>
         public static Barcode GenInternalBarcode(int ops, int month, int num)
         {
             return new Barcode(GetInternalBarcode(ops, month, num));
         }
 
+        /// <summary>
+        /// Создает объект ШПИ для внешнего отправления
+        /// </summary>
+        /// <param name="code">Код отправления</param>
+        /// <param name="land">Код страны отправления</param>
+        /// <param name="num">Номер отправления</param>
+        /// <returns>Объект ШПИ: Barcode</returns>
         public static Barcode GenExternalBarcode(string code, string land, int num)
         {
             return new Barcode(GetExternalBarcode(code, land, num));
         }
 
+        /// <summary>
+        /// Возвращает контрольный разряд отправления
+        /// </summary>
+        /// <param name="barcodeString">Строка со ШПИ</param>
+        /// <returns>Контрольный разряд: char?</returns>
         public static char? GenControlRank(string barcodeString)
         {
             return GenControlRank(new Barcode(barcodeString));
         }
 
+        /// <summary>
+        /// Возвращает контрольный разряд отправления
+        /// </summary>
+        /// <param name="barcode">Объект ШПИ</param>
+        /// <returns>Контрольный разряд: char?</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static char? GenControlRank(Barcode barcode)
         {
@@ -117,6 +170,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return null;
         }
 
+        /// <summary>
+        /// Проверяет строку со ШПИ на валидность
+        /// </summary>
+        /// <param name="barcodeString">Строка со ШПИ</param>
+        /// <returns>Валидный ШПИ: bool</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static bool IsValid(string barcodeString)
         {
@@ -126,11 +184,25 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return false;
         }
 
+        /// <summary>
+        /// Генерирует опредленное количество объектов ШПИ начиная с определенного
+        /// </summary>
+        /// <param name="barcode">Объект ШПИ</param>
+        /// <param name="count">Количество отправлений для генерации</param>
+        /// <returns>Список объектов ШПИ: "List&lt;Barcode&gt;</returns>
         public static List<Barcode> GenBarcodes(Barcode barcode, int count)
         {
             return GenBarcodes(barcode.Ops, barcode.Month, barcode.Num, count);
         }
 
+        /// <summary>
+        /// Генерирует опредленное количество объектов ШПИ
+        /// </summary>
+        /// <param name="ops">Номер отделения</param>
+        /// <param name="month">Номер месяца</param>
+        /// <param name="num">Номер отправления</param>
+        /// <param name="count">Количество отправлений для генерации</param>
+        /// <returns>Список объектов ШПИ: "List&lt;Barcode&gt;</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static List<Barcode> GenBarcodes(int ops, int month, int num, int count)
         {
@@ -141,11 +213,25 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return barcodes;
         }
 
+        /// <summary>
+        /// Генерирует опредленное количество объектов ШПИ начиная с определенного
+        /// </summary>
+        /// <param name="barcode">Объект ШПИ</param>
+        /// <param name="count">Количество отправлений для генерации</param>
+        /// <returns>Список объектов ШПИ: "List&lt;string&gt;</returns>
         public static List<string> GenBarcodesString(Barcode barcode, int count)
         {
             return GenBarcodesString(barcode.Ops, barcode.Month, barcode.Num, count);
         }
 
+        /// <summary>
+        /// Генерирует опредленное количество объектов ШПИ
+        /// </summary>
+        /// <param name="ops">Номер отделения</param>
+        /// <param name="month">Номер месяца</param>
+        /// <param name="num">Номер отправления</param>
+        /// <param name="count">Количество отправлений для генерации</param>
+        /// <returns>Список объектов ШПИ: "List&lt;string&gt;</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static List<string> GenBarcodesString(int ops, int month, int num, int count)
         {
@@ -178,16 +264,28 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return barcodes;
         }
 
-        public static List<Barcode> GenValidBarcodes(object rawBarcode, char unkownChar = '*')
+        /// <summary>
+        /// Генерирует объекты валидных ШПИ по маске
+        /// </summary>
+        /// <param name="rawBarcode">Строка с маской ШПИ</param>
+        /// <param name="unknownChar">Неизвестный символ в ШПИ</param>
+        /// <returns>Список вылидных объектов ШПИ: "List&lt;Barcode&gt;</returns>
+        public static List<Barcode> GenValidBarcodes(object rawBarcode, char unknownChar = '*')
         {
             List<Barcode> barcodes = new List<Barcode>();
 
-            foreach (string b in GenValidBarcodesString(rawBarcode, unkownChar))
+            foreach (string b in GenValidBarcodesString(rawBarcode, unknownChar))
                 barcodes.Add(new Barcode(b));
 
             return barcodes;
         }
 
+        /// <summary>
+        /// Генерирует объекты валидных ШПИ по маске
+        /// </summary>
+        /// <param name="rawBarcode">Строка с маской ШПИ</param>
+        /// <param name="unknownChar">Неизвестный символ в ШПИ</param>
+        /// <returns>Список вылидных ШПИ: "List&lt;string&gt;</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static List<string> GenValidBarcodesString(object rawBarcode, char unknownChar = '*')
         {
@@ -223,6 +321,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return GenValidBarcodesString(r);
         }
 
+        /// <summary>
+        /// Возвращает список валидных объектов ШПИ
+        /// </summary>
+        /// <param name="barcodes">Список ШПИ</param>
+        /// <returns>Список вылидных объектов ШПИ: "List&lt;Barcode&gt;</returns>
         public static List<Barcode> CheckBarcodes(List<string> barcodes)
         {
             List<Barcode> barcodeList = new List<Barcode>();
@@ -233,6 +336,11 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
             return barcodeList;
         }
 
+        /// <summary>
+        /// Возвращает список валидных ШПИ
+        /// </summary>
+        /// <param name="barcodes">Список ШПИ</param>
+        /// <returns>Список вылидных ШПИ: "List&lt;string&gt;</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public static List<string> CheckBarcodesString(List<string> barcodes)
         {
