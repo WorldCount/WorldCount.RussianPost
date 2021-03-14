@@ -189,7 +189,7 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public static List<string> GenValidBarcodesString(object rawBarcode, char unkownChar = '*')
+        public static List<string> GenValidBarcodesString(object rawBarcode, char unknownChar = '*')
         {
             List<string> r = new List<string>();
             List<string> barcodes = new List<string>();
@@ -202,7 +202,7 @@ namespace WorldCount.RussianPost.PostApi.Barcodes
 
             for (var i = barcodes.Count - 1; i >= 0; i--)
             {
-                int index = barcodes[i].IndexOf('*');
+                int index = barcodes[i].IndexOf(unknownChar);
                 if (index == -1)
                     r.Add(barcodes[i]);
                 else
